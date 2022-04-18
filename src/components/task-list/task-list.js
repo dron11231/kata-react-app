@@ -1,4 +1,3 @@
-import { getValue } from "@testing-library/user-event/dist/utils";
 import React from "react";
 
 import Task from "../task/task";
@@ -11,7 +10,7 @@ const TaskList = function ({ todos, setStatus, setText, deleteTask }) {
     return (
       <li
         key={id}
-        className={itemProps.status}
+        className={itemProps.status + " " + itemProps.visible}
         onChange={(e) => {
           if (e.target.className === "toggle") {
             setStatus(id, e.target.checked);

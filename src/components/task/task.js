@@ -6,13 +6,7 @@ export default class Task extends React.Component {
   render() {
     return (
       <div className="view">
-        <input
-          className="toggle"
-          type="checkbox"
-          /* onClick={() => {
-            this.props.setStatus(this.props.id);
-          }} */
-        />
+        <input className="toggle" type="checkbox" />
         <label>
           <span className="description">{this.props.text}</span>
           <span className="created">created 17 seconds ago</span>
