@@ -1,6 +1,7 @@
 import React from "react";
 
 import TasksFilter from "../tasks-filter/tasks-filter";
+import PropTypes from "prop-types";
 import "./footer.css";
 
 const Footer = function ({ setVisibility, clearCompleted, todos }) {
@@ -19,6 +20,11 @@ const Footer = function ({ setVisibility, clearCompleted, todos }) {
       </button>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  clearCompleted: PropTypes.func,
 };
 
 export default Footer;

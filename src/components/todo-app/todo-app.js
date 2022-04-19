@@ -135,11 +135,3 @@ export default class TodoApp extends React.Component {
     );
   }
 }
-
-/* else {
-        if (state.taskList[idx].status === "completed") {
-          newArr[idx].status = "active";
-        } else if (state.taskList[idx].status === "active") {
-          newArr[idx].status = "completed";
-        }
-      } */

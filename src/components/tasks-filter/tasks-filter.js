@@ -1,8 +1,13 @@
 import React from "react";
 
+import PropTypes from "prop-types";
 import "./tasks-filter.css";
 
 export default class TasksFilter extends React.Component {
+  static propTypes = {
+    setVisibility: PropTypes.func,
+  };
+
   componentDidMount() {
     const btns = document.querySelectorAll(".filter-btn");
     const btnList = document.querySelector(".filters");

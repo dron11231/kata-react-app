@@ -1,10 +1,16 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 import "./new-task-form.css";
 
 export default class NewTaskForm extends React.Component {
   state = {
     text: "",
+  };
+
+  static propTypes = {
+    addTask: PropTypes.func,
   };
 
   onToggleText = (e) => {

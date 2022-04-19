@@ -1,6 +1,7 @@
 import React from "react";
 
 import Task from "../task/task";
+import PropTypes from "prop-types";
 
 import "./task-list.css";
 
@@ -38,6 +39,12 @@ const TaskList = function ({ todos, setStatus, setText, deleteTask }) {
     );
   });
   return <ul className="todo-list">{elems}</ul>;
+};
+
+TaskList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setStatus: PropTypes.func,
+  setText: PropTypes.func,
 };
 
 export default TaskList;
