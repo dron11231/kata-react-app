@@ -7,4 +7,3 @@ import './index.css'
 const container = document.getElementById('root')
 
 ReactDOM.render(<TodoApp />, container)
-d
