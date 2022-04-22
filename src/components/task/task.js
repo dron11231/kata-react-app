@@ -1,7 +1,6 @@
-import React from "react";
-
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import PropTypes from "prop-types";
+import React from 'react'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import PropTypes from 'prop-types'
 
 export default class Task extends React.Component {
   static propTypes = {
@@ -9,15 +8,15 @@ export default class Task extends React.Component {
     setStatus: PropTypes.func,
     deleteTask: PropTypes.func,
     id: PropTypes.number,
-  };
+  }
 
   static defaultProps = {
-    text: "Default String.",
-  };
+    text: 'Default String.',
+  }
 
   state = {
     time: new Date(),
-  };
+  }
 
   render() {
     return (
@@ -26,26 +25,26 @@ export default class Task extends React.Component {
         <label>
           <span className="description">{this.props.text}</span>
           <span className="created">
-            Created{" "}
+            Created{' '}
             {formatDistanceToNow(this.state.time, {
               includeSeconds: true,
               addSuffix: true,
-            })}{" "}
+            })}{' '}
           </span>
         </label>
         <button
           className="icon icon-edit"
           onClick={() => {
-            this.props.setStatus(this.props.id, null, "editing");
+            this.props.setStatus(this.props.id, null, 'editing')
           }}
         ></button>
         <button
           className="icon icon-destroy"
           onClick={() => {
-            this.props.deleteTask(this.props.id);
+            this.props.deleteTask(this.props.id)
           }}
         ></button>
       </div>
-    );
+    )
   }
 }

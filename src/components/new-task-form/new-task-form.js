@@ -1,35 +1,34 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import PropTypes from "prop-types";
-
-import "./new-task-form.css";
+import './new-task-form.css'
 
 export default class NewTaskForm extends React.Component {
   state = {
-    text: "",
-  };
+    text: '',
+  }
 
   static propTypes = {
     addTask: PropTypes.func,
-  };
+  }
 
   onToggleText = (e) => {
     this.setState(() => {
       return {
         text: e.target.value,
-      };
-    });
-  };
+      }
+    })
+  }
 
   onSubmit = (e) => {
-    e.preventDefault();
-    this.props.addTask(this.state.text);
+    e.preventDefault()
+    this.props.addTask(this.state.text)
     this.setState(() => {
       return {
-        text: "",
-      };
-    });
-  };
+        text: '',
+      }
+    })
+  }
 
   render() {
     return (
@@ -42,6 +41,6 @@ export default class NewTaskForm extends React.Component {
           value={this.state.text}
         />
       </form>
-    );
+    )
   }
 }

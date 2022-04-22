@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import NewTaskForm from "../new-task-form/new-task-form";
+import NewTaskForm from '../new-task-form/new-task-form'
 
 const Header = function ({ addTask }) {
   return (
@@ -8,7 +8,7 @@ const Header = function ({ addTask }) {
       <h1>todos</h1>
       <NewTaskForm addTask={addTask} />
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

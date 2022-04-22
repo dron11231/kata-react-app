@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import TasksFilter from "../tasks-filter/tasks-filter";
-import PropTypes from "prop-types";
-import "./footer.css";
+import TasksFilter from '../tasks-filter/tasks-filter'
+import './footer.css'
 
 const Footer = function ({ setVisibility, clearCompleted, todos }) {
-  let activeTaskCount = 0;
+  let activeTaskCount = 0
   todos.forEach((el) => {
-    if (el.status === "active") {
-      activeTaskCount++;
+    if (el.status === 'active') {
+      activeTaskCount++
     }
-  });
+  })
   return (
     <footer className="footer">
       <span className="todo-count">{activeTaskCount} items left</span>
@@ -19,12 +19,12 @@ const Footer = function ({ setVisibility, clearCompleted, todos }) {
         Clear completed
       </button>
     </footer>
-  );
-};
+  )
+}
 
 Footer.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
   clearCompleted: PropTypes.func,
-};
+}
 
-export default Footer;
+export default Footer

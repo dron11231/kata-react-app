@@ -1,25 +1,24 @@
-import React from "react";
-
-import PropTypes from "prop-types";
-import "./tasks-filter.css";
+import React from 'react'
+import PropTypes from 'prop-types'
+import './tasks-filter.css'
 
 export default class TasksFilter extends React.Component {
   static propTypes = {
     setVisibility: PropTypes.func,
-  };
+  }
 
   componentDidMount() {
-    const btns = document.querySelectorAll(".filter-btn");
-    const btnList = document.querySelector(".filters");
+    const btns = document.querySelectorAll('.filter-btn')
+    const btnList = document.querySelector('.filters')
 
-    btnList.addEventListener("click", (e) => {
-      if (e.target.classList.contains("filter-btn")) {
+    btnList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-btn')) {
         btns.forEach((btn) => {
-          btn.classList.remove("selected");
-        });
-        e.target.classList.add("selected");
+          btn.classList.remove('selected')
+        })
+        e.target.classList.add('selected')
       }
-    });
+    })
   }
 
   render() {
@@ -29,7 +28,7 @@ export default class TasksFilter extends React.Component {
           <button
             className="filter-btn selected"
             onClick={() => {
-              this.props.setVisibility("all");
+              this.props.setVisibility('all')
             }}
           >
             All
@@ -39,7 +38,7 @@ export default class TasksFilter extends React.Component {
           <button
             className="filter-btn"
             onClick={() => {
-              this.props.setVisibility("active");
+              this.props.setVisibility('active')
             }}
           >
             Active
@@ -49,13 +48,13 @@ export default class TasksFilter extends React.Component {
           <button
             className="filter-btn"
             onClick={() => {
-              this.props.setVisibility("completed");
+              this.props.setVisibility('completed')
             }}
           >
             Completed
           </button>
         </li>
       </ul>
-    );
+    )
   }
 }
