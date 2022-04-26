@@ -21,8 +21,8 @@ export default class Task extends React.Component {
   render() {
     return (
       <div className="view">
-        <input className="toggle" type="checkbox" />
-        <label>
+        <input className="toggle" type="checkbox" id={this.props.id} />
+        <label htmlFor={this.props.id}>
           <span className="description">{this.props.text}</span>
           <span className="created">
             Created{' '}

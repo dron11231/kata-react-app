@@ -13,15 +13,18 @@ export default class TodoApp extends React.Component {
       { text: 'Completed task', status: 'active', visible: 'visible', id: 1 },
       { text: 'Active task', status: 'active', visible: 'visible', id: 2 },
     ],
+    filter: 'all',
   }
 
   visibleHandler = (filter) => {
     this.setState((state) => {
       const newArr = [...state.taskList]
+      let prevFilter = state.filter
 
       switch (filter) {
         case 'all':
           newArr.forEach((el) => (el.visible = 'visible'))
+          prevFilter = 'all'
           break
 
         case 'active':
@@ -32,6 +35,7 @@ export default class TodoApp extends React.Component {
               el.visible = 'invisible'
             }
           })
+          prevFilter = 'active'
           break
         case 'completed':
           newArr.forEach((el) => {
@@ -41,12 +45,14 @@ export default class TodoApp extends React.Component {
               el.visible = 'invisible'
             }
           })
+          prevFilter = 'completed'
           break
         default:
       }
 
       return {
         taskList: newArr,
+        filter: prevFilter,
       }
     })
   }
@@ -81,6 +87,11 @@ export default class TodoApp extends React.Component {
     })
   }
 
+  filterChecker = () => {
+    const filter = this.state.filter
+    this.visibleHandler(filter)
+  }
+
   statusHandler = (id, checkboxState, status) => {
     this.setState((state) => {
       const newArr = [...state.taskList]
@@ -103,14 +114,16 @@ export default class TodoApp extends React.Component {
   addTask = (text) => {
     this.setState((state) => {
       const newArr = [...state.taskList]
-      newArr.push({
-        text: text,
-        status: 'active',
-        visible: true,
-        id: this.maxId++,
-      })
-      return {
-        taskList: newArr,
+      if (text !== '') {
+        newArr.push({
+          text: text,
+          status: 'active',
+          visible: true,
+          id: this.maxId++,
+        })
+        return {
+          taskList: newArr,
+        }
       }
     })
   }
@@ -125,9 +138,12 @@ export default class TodoApp extends React.Component {
             setStatus={this.statusHandler}
             setText={this.editHandler}
             deleteTask={this.deleteHandler}
+            setVisibility={this.visibleHandler}
+            filterChecker={this.filterChecker}
           />
           <Footer
             todos={this.state.taskList}
+            filter={this.state.filter}
             setVisibility={this.visibleHandler}
             clearCompleted={this.clearCompleted}
           />

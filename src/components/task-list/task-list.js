@@ -5,7 +5,7 @@ import Task from '../task/task'
 
 import './task-list.css'
 
-const TaskList = function ({ todos, setStatus, setText, deleteTask }) {
+const TaskList = function ({ todos, setStatus, setText, deleteTask, filterChecker }) {
   const elems = todos.map((el) => {
     const { id, ...itemProps } = el
     return (
@@ -15,6 +15,7 @@ const TaskList = function ({ todos, setStatus, setText, deleteTask }) {
         onChange={(e) => {
           if (e.target.className === 'toggle') {
             setStatus(id, e.target.checked)
+            filterChecker()
           }
         }}
       >
