@@ -82,10 +82,10 @@ export default class TodoApp extends React.Component {
   }
 
   stopTimer = (id) => {
-    const idx = this.state.taskList.findIndex((el) => el.id === id)
+    const newArr = [...this.state.taskList]
+    const idx = newArr.findIndex((el) => el.id === id)
     clearInterval(this.state.taskList[idx].timerId)
     this.setState(() => {
-      const newArr = [...this.state.taskList]
       newArr[idx].timerId = null
       return {
         taskList: newArr,
@@ -135,10 +135,10 @@ export default class TodoApp extends React.Component {
   }
 
   deleteHandler = (id) => {
-    this.stopTimer(id)
     this.setState((state) => {
       const newArr = [...state.taskList]
       const idx = newArr.findIndex((el) => el.id === id)
+      clearInterval(newArr[idx].timerId)
       newArr.splice(idx, 1)
       return {
         taskList: newArr,
@@ -149,7 +149,6 @@ export default class TodoApp extends React.Component {
   clearCompleted = () => {
     this.state.taskList.forEach((el) => {
       if (el.status === 'completed') {
-        this.stopTimer(el.id)
         this.deleteHandler(el.id)
       }
     })
