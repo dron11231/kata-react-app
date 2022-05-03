@@ -5,7 +5,7 @@ import Task from '../task/task'
 
 import './task-list.css'
 
-const TaskList = function ({ todos, setStatus, setText, deleteTask, filterChecker }) {
+const TaskList = function ({ todos, setStatus, setText, deleteTask, filterChecker, startTimer, stopTimer }) {
   const elems = todos.map((el) => {
     const { id, ...itemProps } = el
     return (
@@ -19,7 +19,16 @@ const TaskList = function ({ todos, setStatus, setText, deleteTask, filterChecke
           }
         }}
       >
-        <Task {...itemProps} id={id} setStatus={setStatus} deleteTask={deleteTask} />
+        <Task
+          {...itemProps}
+          id={id}
+          setStatus={setStatus}
+          deleteTask={deleteTask}
+          timerValue={itemProps.timerValue}
+          startTimer={startTimer}
+          taskList={todos}
+          stopTimer={stopTimer}
+        />
         <input
           type="text"
           className="edit"

@@ -7,13 +7,90 @@ import './todo-app.css'
 
 export default class TodoApp extends React.Component {
   maxId = 3
+  timer = null
 
   state = {
     taskList: [
-      { text: 'Completed task', status: 'active', visible: 'visible', id: 1 },
-      { text: 'Active task', status: 'active', visible: 'visible', id: 2 },
+      { text: 'Completed task', status: 'active', visible: 'visible', timerId: null, timerValue: '00:00', id: 1 },
+      { text: 'Active task', status: 'active', visible: 'visible', timerId: null, timerValue: '00:00', id: 2 },
     ],
     filter: 'all',
+  }
+
+  startTimer = (id) => {
+    this.setState(() => {
+      const arr = [...this.state.taskList]
+      const index = arr.findIndex((el) => el.id === id)
+      if (arr[index].timerId !== null) {
+        return
+      }
+      arr[index].timerId = setInterval(() => {
+        const newArr = [...this.state.taskList]
+        const idx = newArr.findIndex((el) => el.id === id)
+        const time = newArr[idx].timerValue.split(':')
+        let minutes = time[0]
+        let seconds = time[1]
+        if (minutes > 0) {
+          if (seconds >= 0) {
+            seconds--
+          }
+          if (seconds < 0) {
+            minutes--
+            seconds = 59
+          }
+        } else if (seconds > 0) {
+          seconds--
+        } else {
+          clearInterval(this.state.taskList[idx].timerId)
+        }
+        const newTime = this.setTimer(minutes, seconds)
+        newArr[idx].timerValue = newTime
+        this.setState({ taskList: newArr })
+      }, 1000)
+
+      return {
+        taskList: arr,
+      }
+    })
+  }
+
+  setTimer = (min = '00', sec = '00') => {
+    if (min === '') {
+      min = '00'
+    }
+    if (sec === '') {
+      sec = '00'
+    }
+    let minutes = min
+    let seconds = sec
+    let newTime = []
+
+    if (sec > 60) {
+      seconds = 60
+    }
+    minutes = minutes.toString()
+    seconds = seconds.toString()
+    if (minutes.length < 2) {
+      minutes = '0' + minutes
+    }
+    if (seconds.length < 2) {
+      seconds = '0' + seconds
+    }
+    newTime.push(minutes, seconds)
+    newTime = newTime.join(':')
+    return newTime
+  }
+
+  stopTimer = (id) => {
+    const idx = this.state.taskList.findIndex((el) => el.id === id)
+    clearInterval(this.state.taskList[idx].timerId)
+    this.setState(() => {
+      const newArr = [...this.state.taskList]
+      newArr[idx].timerId = null
+      return {
+        taskList: newArr,
+      }
+    })
   }
 
   visibleHandler = (filter) => {
@@ -58,6 +135,7 @@ export default class TodoApp extends React.Component {
   }
 
   deleteHandler = (id) => {
+    this.stopTimer(id)
     this.setState((state) => {
       const newArr = [...state.taskList]
       const idx = newArr.findIndex((el) => el.id === id)
@@ -71,6 +149,7 @@ export default class TodoApp extends React.Component {
   clearCompleted = () => {
     this.state.taskList.forEach((el) => {
       if (el.status === 'completed') {
+        this.stopTimer(el.id)
         this.deleteHandler(el.id)
       }
     })
@@ -111,7 +190,7 @@ export default class TodoApp extends React.Component {
     })
   }
 
-  addTask = (text) => {
+  addTask = (text, min, sec) => {
     this.setState((state) => {
       const newArr = [...state.taskList]
       if (text !== '') {
@@ -119,6 +198,8 @@ export default class TodoApp extends React.Component {
           text: text,
           status: 'active',
           visible: true,
+          timerId: null,
+          timerValue: this.setTimer(min, sec),
           id: this.maxId++,
         })
         return {
@@ -131,7 +212,7 @@ export default class TodoApp extends React.Component {
   render() {
     return (
       <section className="todoapp">
-        <Header addTask={this.addTask} />
+        <Header addTask={this.addTask} setTimer={this.setTimer} />
         <section className="main">
           <TaskList
             todos={this.state.taskList}
@@ -140,6 +221,8 @@ export default class TodoApp extends React.Component {
             deleteTask={this.deleteHandler}
             setVisibility={this.visibleHandler}
             filterChecker={this.filterChecker}
+            startTimer={this.startTimer}
+            stopTimer={this.stopTimer}
           />
           <Footer
             todos={this.state.taskList}
