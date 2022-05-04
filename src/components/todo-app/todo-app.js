@@ -21,7 +21,7 @@ export default class TodoApp extends React.Component {
     this.setState(() => {
       const arr = [...this.state.taskList]
       const index = arr.findIndex((el) => el.id === id)
-      if (arr[index].timerId !== null) {
+      if (arr[index].timerId !== null || arr[index].status === 'completed') {
         return
       }
       arr[index].timerId = setInterval(() => {
@@ -85,8 +85,8 @@ export default class TodoApp extends React.Component {
     const newArr = [...this.state.taskList]
     const idx = newArr.findIndex((el) => el.id === id)
     clearInterval(this.state.taskList[idx].timerId)
+    newArr[idx].timerId = null
     this.setState(() => {
-      newArr[idx].timerId = null
       return {
         taskList: newArr,
       }
@@ -179,6 +179,8 @@ export default class TodoApp extends React.Component {
       } else {
         if (checkboxState) {
           newArr[idx].status = 'completed'
+          clearInterval(newArr[idx].timerId)
+          newArr[idx].timerId = null
         } else {
           newArr[idx].status = 'active'
         }
@@ -192,7 +194,7 @@ export default class TodoApp extends React.Component {
   addTask = (text, min, sec) => {
     this.setState((state) => {
       const newArr = [...state.taskList]
-      if (text !== '') {
+      if (text !== '' && text.charAt(0) !== ' ') {
         newArr.push({
           text: text,
           status: 'active',
