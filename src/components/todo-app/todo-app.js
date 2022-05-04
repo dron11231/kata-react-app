@@ -12,7 +12,7 @@ export default class TodoApp extends React.Component {
   state = {
     taskList: [
       {
-        text: 'https://github.com/dron11231/kata-react-app',
+        text: 'Completed Task',
         status: 'active',
         visible: 'visible',
         timerId: null,
