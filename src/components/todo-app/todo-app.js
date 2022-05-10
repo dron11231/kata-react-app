@@ -28,7 +28,7 @@ export default class TodoApp extends React.Component {
     this.setState(() => {
       const arr = [...this.state.taskList]
       const index = arr.findIndex((el) => el.id === id)
-      if (arr[index].timerId !== null || arr[index].status === 'completed') {
+      if (arr[index].timerId !== null || arr[index].status === 'completedd') {
         return
       }
       arr[index].timerId = setInterval(() => {
