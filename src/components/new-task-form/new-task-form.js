@@ -1,17 +1,74 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
 import './new-task-form.css'
 
-export default class NewTaskForm extends React.Component {
+function NewTaskForm({ addTask }) {
+  const [textField, setText] = useState('')
+  const [secondsField, setSeconds] = useState('')
+  const [minutesField, setMinutes] = useState('')
+
+  const onToggleText = (e) => {
+    setText(e.target.value)
+  }
+
+  const onToggleMinutes = (e) => {
+    e.target.value = e.target.value.replace(/[^\d]/g, '')
+    setMinutes(e.target.value)
+  }
+
+  const onToggleSeconds = (e) => {
+    e.target.value = e.target.value.replace(/[^\d]/g, '')
+    setSeconds(e.target.value)
+  }
+
+  const onSubmit = () => {
+    addTask(textField, minutesField, secondsField)
+    setText('')
+    setMinutes('')
+    setSeconds('')
+  }
+
+  return (
+    <form
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          onSubmit()
+        }
+      }}
+      className="new-todo-form"
+    >
+      <input
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus
+        onChange={onToggleText}
+        value={textField}
+      />
+      <input
+        className="new-todo-form__timer input-timer-minutes"
+        placeholder="Min"
+        onChange={onToggleMinutes}
+        value={minutesField}
+        maxLength={2}
+        autoFocus
+      />
+      <input
+        className="new-todo-form__timer input-timer-seconds"
+        placeholder="Sec"
+        onChange={onToggleSeconds}
+        value={secondsField}
+        maxLength={2}
+        autoFocus
+      />
+    </form>
+  )
+}
+
+class NewTaskFormm extends React.Component {
   state = {
     text: '',
     seconds: '',
     minutes: '',
-  }
-
-  static propTypes = {
-    addTask: PropTypes.func,
   }
 
   onToggleText = (e) => {
@@ -76,3 +133,5 @@ export default class NewTaskForm extends React.Component {
     )
   }
 }
+
+export default NewTaskForm
