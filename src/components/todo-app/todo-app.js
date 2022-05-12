@@ -166,6 +166,7 @@ function TodoApp() {
         })
         return newArr
       }
+      return newArr
     })
   }
 
