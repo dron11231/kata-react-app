@@ -47,7 +47,7 @@ const TaskList = function ({ todos, setStatus, setText, deleteTask, filterChecke
 }
 
 TaskList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  /* todos: PropTypes.arrayOf(PropTypes.object).isRequired, */
   setStatus: PropTypes.func,
   setText: PropTypes.func,
 }
