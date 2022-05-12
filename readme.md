@@ -1,1 +1,1 @@
-https://kata-i5psi9wtu-dron11231.vercel.app/
+https://kata-app-dron11231.vercel.app/
