@@ -137,7 +137,6 @@ function TodoApp() {
           prevFilter = 'active'
           break
         case 'completed':
-          console.log(newArr)
           newArr.forEach((el) => {
             if (el.status === 'completed') {
               el.visible = 'visible'
