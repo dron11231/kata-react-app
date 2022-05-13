@@ -116,9 +116,8 @@ function TodoApp() {
   }
 
   const visibleHandler = (filter) => {
-    const newArr = [...taskList]
+    let newArr = [...taskList]
     let prevFilter = filter
-
     switch (filter) {
       case 'all':
         newArr.forEach((el) => (el.visible = 'visible'))
@@ -126,7 +125,8 @@ function TodoApp() {
         break
 
       case 'active':
-        newArr.forEach((el) => {
+        newArr.forEach((el, idx) => {
+          console.log(newArr[idx], newArr)
           if (el.status === 'active') {
             el.visible = 'visible'
           } else {
@@ -136,6 +136,7 @@ function TodoApp() {
         prevFilter = 'active'
         break
       case 'completed':
+        console.log(newArr)
         newArr.forEach((el) => {
           if (el.status === 'completed') {
             el.visible = 'visible'
@@ -147,7 +148,6 @@ function TodoApp() {
         break
       default:
     }
-
     setTaskList(() => newArr)
     setFilter(prevFilter)
   }
@@ -159,7 +159,7 @@ function TodoApp() {
         newArr.push({
           text: text,
           status: 'active',
-          visible: true,
+          visible: 'visible',
           timerId: null,
           timerValue: useSetTimer(min, sec),
           id: maxId++,
