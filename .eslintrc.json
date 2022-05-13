@@ -29,6 +29,7 @@
 
   "plugins": ["react", "prettier", "import"],
   "rules": {
+    "no-case-declarations":"off",
     "no-unused-vars":"off",
     "indent": "off",
     "prettier/prettier": "error",

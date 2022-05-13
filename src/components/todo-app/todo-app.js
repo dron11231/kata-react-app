@@ -116,40 +116,42 @@ function TodoApp() {
   }
 
   const visibleHandler = (filter) => {
-    let newArr = [...taskList]
-    let prevFilter = filter
-    switch (filter) {
-      case 'all':
-        newArr.forEach((el) => (el.visible = 'visible'))
-        prevFilter = 'all'
-        break
+    setTaskList((todo) => {
+      const newArr = [...todo]
+      let prevFilter = filter
+      switch (filter) {
+        case 'all':
+          newArr.forEach((el) => (el.visible = 'visible'))
+          prevFilter = 'all'
+          break
 
-      case 'active':
-        newArr.forEach((el, idx) => {
-          console.log(newArr[idx], newArr)
-          if (el.status === 'active') {
-            el.visible = 'visible'
-          } else {
-            el.visible = 'invisible'
-          }
-        })
-        prevFilter = 'active'
-        break
-      case 'completed':
-        console.log(newArr)
-        newArr.forEach((el) => {
-          if (el.status === 'completed') {
-            el.visible = 'visible'
-          } else {
-            el.visible = 'invisible'
-          }
-        })
-        prevFilter = 'completed'
-        break
-      default:
-    }
-    setTaskList(() => newArr)
-    setFilter(prevFilter)
+        case 'active':
+          newArr.forEach((el) => {
+            if (el.status === 'active') {
+              el.visible = 'visible'
+            } else {
+              el.visible = 'invisible'
+            }
+          })
+
+          prevFilter = 'active'
+          break
+        case 'completed':
+          console.log(newArr)
+          newArr.forEach((el) => {
+            if (el.status === 'completed') {
+              el.visible = 'visible'
+            } else {
+              el.visible = 'invisible'
+            }
+          })
+          prevFilter = 'completed'
+          break
+        default:
+      }
+      setFilter(prevFilter)
+      return newArr
+    })
   }
 
   const addTask = (text, min, sec) => {
@@ -168,6 +170,7 @@ function TodoApp() {
       }
       return newArr
     })
+    visibleHandler(filter)
   }
 
   return (
